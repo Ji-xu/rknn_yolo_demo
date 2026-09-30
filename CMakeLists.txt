@@ -1,37 +1,21 @@
 cmake_minimum_required(VERSION 3.10)
 project(rknn_yolo_demo)
-
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 头文件路径
+## ---- 输出目录设置 ----
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+set(RKNN_DIR ${CMAKE_SOURCE_DIR})
 include_directories(
-    ${CMAKE_SOURCE_DIR}/include/import
-    ${CMAKE_SOURCE_DIR}/include/inner
+    ${RKNN_DIR}/include/import
+    ${RKNN_DIR}/include/inner
 )
 
-# 库文件路径
-link_directories(
-    ${CMAKE_SOURCE_DIR}/lib
+find_package(OpenCV REQUIRED)
+
+add_executable(demo src/main.cpp src/yolo.cpp)
+target_link_libraries(demo
+    ${OpenCV_LIBS}
+    ${RKNN_DIR}/lib/librknnrt.so
+    ${RKNN_DIR}/lib/librga.so
 )
-
-# 源文件
-file(GLOB SRC_FILES
-    ${CMAKE_SOURCE_DIR}/src/*.cpp
-)
-
-add_executable(rknn_yolo_demo ${SRC_FILES})
-
-# 链接库：RKNN 运行时、RGA、pthread、dl
-target_link_libraries(rknn_yolo_demo
-    rknnrt
-    rga
-    pthread
-    dl
-    m
-)
-
-# 可选：如果用到 OpenCV，取消下面注释
-# find_package(OpenCV REQUIRED)
-# include_directories(${OpenCV_INCLUDE_DIRS})
-# target_link_libraries(rknn_yolo_demo ${OpenCV_LIBS})
