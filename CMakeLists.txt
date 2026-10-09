@@ -7,8 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 set(RKNN_DIR ${CMAKE_SOURCE_DIR})
 include_directories(
+    ${RKNN_DIR}/include
     ${RKNN_DIR}/include/import
-    ${RKNN_DIR}/include/inner
 )
 
 find_package(OpenCV REQUIRED)
