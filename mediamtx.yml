@@ -1,0 +1,4 @@
+# 不放这个文件时 mediamtx 用空配置，任何路径都报 "path ... is not configured"
+logLevel: warn   # 只留警告/错误；调试拉流时改回 info 看连接日志
+paths:
+  all_others:
